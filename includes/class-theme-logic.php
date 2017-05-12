@@ -76,6 +76,9 @@ class Theme_Logic {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+		//a general house clean up
+		$this->general_cleanup();
+
 		//lets bootup our custom post types
 		$this->loader->add_action( 'init', $this, 'create_custom_post_types' );
 
@@ -213,6 +216,30 @@ class Theme_Logic {
 	 */
 	public function get_version() {
 		return $this->version;
+	}
+
+	public function general_cleanup(){
+		//remove stupid wp and plugin tags for security
+		remove_action('wp_head', 'rsd_link');
+		remove_action('wp_head', 'wp_generator');
+		remove_action('wp_head', 'rest_output_link_wp_head');
+		remove_action('wp_head', 'wp_oembed_add_discovery_links');
+		remove_action('wp_head', 'wp_oembed_add_host_js');
+		remove_action('wp_head', 'wlwmanifest_link');
+		remove_action('wp_head', 'meta_generator_tag');
+		remove_action('wp_head', 'print_emoji_detection_script', 7);
+		remove_action('admin_print_scripts', 'print_emoji_detection_script');
+		remove_action('wp_print_styles', 'print_emoji_styles');
+		remove_action('admin_print_styles', 'print_emoji_styles');
+		remove_action('wp_head', 'wp_shortlink_wp_head', 10);
+
+		//lets hide the admin bar in the
+		add_filter('show_admin_bar', '__return_false');
+
+		// Lower the display priority of Yoast SEO meta box
+		add_filter( 'wpseo_metabox_prio', function(){
+			return 'low';
+		});
 	}
 
 	/**
