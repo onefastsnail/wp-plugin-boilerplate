@@ -57,6 +57,9 @@ register_deactivation_hook( __FILE__, 'deactivate_theme_logic' );
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-theme-logic.php';
 
+//include our functions
+require plugin_dir_path( __FILE__ ) . 'includes/functions/index.php';
+
 /**
  * Begins execution of the plugin.
  *
