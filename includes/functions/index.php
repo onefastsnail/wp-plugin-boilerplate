@@ -1,4 +1,4 @@
-<?php
+<?php namespace Acme;
 
 function get_current_timestamp(){
 	return time();

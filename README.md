@@ -1,3 +1,5 @@
+[![Build Status](https://github.com/onefastsnail/wp-theme-logic-plugin.png?branch=master)](https://github.com/onefastsnail/wp-theme-logic-plugin)
+
 === Plugin Name ===
 Contributors: (this should be a list of wordpress.org userid's)
 Donate link: https://www.onefastsnail.com
