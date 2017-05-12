@@ -1,4 +1,4 @@
-[![Build Status]https://travis-ci.org/wp-cli/wp-theme-logic-plugin.png?branch=master)]https://travis-ci.org/wp-cli/wp-theme-logic-plugin)
+[![Build Status](https://travis-ci.org/onefastsnail/wp-theme-logic-plugin.png?branch=master)](https://travis-ci.org/onefastsnail/wp-theme-logic-plugin)
 
 === Plugin Name ===
 Contributors: (this should be a list of wordpress.org userid's)
