@@ -60,6 +60,9 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-theme-logic.php';
 //include our functions
 require plugin_dir_path( __FILE__ ) . 'includes/functions/index.php';
 
+//include our post types
+require plugin_dir_path( __FILE__ ) . 'includes/custom-post-types.php';
+
 /**
  * Begins execution of the plugin.
  *

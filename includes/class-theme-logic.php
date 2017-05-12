@@ -76,6 +76,9 @@ class Theme_Logic {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+		//lets bootup our custom post types
+		$this->loader->add_action( 'init', $this, 'create_custom_post_types' );
+
 	}
 
 	/**
@@ -210,6 +213,14 @@ class Theme_Logic {
 	 */
 	public function get_version() {
 		return $this->version;
+	}
+
+	/**
+	 * [create_custom_post_types description]
+	 * @return [type] [description]
+	 */
+	public function create_custom_post_types(){
+		//ThemeLogic\PostTypes\create_example();
 	}
 
 }
