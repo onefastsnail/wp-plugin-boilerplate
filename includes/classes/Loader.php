@@ -1,4 +1,4 @@
-<?php
+<?php namespace Onefastsnail\MyPlugin;
 
 /**
  * Register all actions and filters for the plugin
@@ -6,8 +6,8 @@
  * @link       https://www.onefastsnail.com
  * @since      1.0.0
  *
- * @package    Theme_Logic
- * @subpackage Theme_Logic/includes
+ * @package    Logic
+ * @subpackage Logic/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Theme_Logic
- * @subpackage Theme_Logic/includes
+ * @package    Logic
+ * @subpackage Logic/includes
  * @author     Paul Stewart <paul@onefastsnail.com>
  */
-class Theme_Logic_Loader {
+class Loader {
 
 	/**
 	 * The array of actions registered with WordPress.
@@ -63,7 +63,7 @@ class Theme_Logic_Loader {
 	 * @param    int                  $priority         Optional. he priority at which the function should be fired. Default is 10.
 	 * @param    int                  $accepted_args    Optional. The number of arguments that should be passed to the $callback. Default is 1.
 	 */
-	public function add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
+	public function addAction( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->actions = $this->add( $this->actions, $hook, $component, $callback, $priority, $accepted_args );
 	}
 
@@ -77,7 +77,7 @@ class Theme_Logic_Loader {
 	 * @param    int                  $priority         Optional. he priority at which the function should be fired. Default is 10.
 	 * @param    int                  $accepted_args    Optional. The number of arguments that should be passed to the $callback. Default is 1
 	 */
-	public function add_filter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
+	public function addFilter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->filters = $this->add( $this->filters, $hook, $component, $callback, $priority, $accepted_args );
 	}
 

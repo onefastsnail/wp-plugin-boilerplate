@@ -31,3 +31,8 @@ logs/
 .Trashes
 ebs.db
 Thumbs.db
+
+#project
+node_modules
+public/dist
+dump/

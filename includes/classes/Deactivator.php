@@ -1,4 +1,4 @@
-<?php
+<?php namespace Onefastsnail\MyPlugin;
 
 /**
  * Fired during plugin deactivation
@@ -6,8 +6,8 @@
  * @link       https://www.onefastsnail.com
  * @since      1.0.0
  *
- * @package    Theme_Logic
- * @subpackage Theme_Logic/includes
+ * @package    Logic
+ * @subpackage Logic/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Theme_Logic
- * @subpackage Theme_Logic/includes
+ * @package    Logic
+ * @subpackage Logic/includes
  * @author     Paul Stewart <paul@onefastsnail.com>
  */
-class Theme_Logic_Deactivator {
+class Deactivator {
 
 	/**
 	 * Short Description. (use period)

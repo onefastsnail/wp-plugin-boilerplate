@@ -1,4 +1,4 @@
-<?php
+<?php namespace Onefastsnail\MyPlugin;
 
 /**
  * The plugin bootstrap file
@@ -10,18 +10,18 @@
  *
  * @link              https://www.onefastsnail.com
  * @since             1.0.0
- * @package           Theme_Logic
+ * @package           My Plugin
  *
  * @wordpress-plugin
- * Plugin Name:       Theme Logic
- * Plugin URI:        https://github.com/onefastsnail/wp-theme-logic-plugin
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Plugin Name:       My Plugin
+ * Plugin URI:
+ * Description:       Adding My Plugin to your website.
  * Version:           1.0.0
  * Author:            Paul Stewart
  * Author URI:        https://www.onefastsnail.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       theme-logic
+ * Text Domain:       logic
  * Domain Path:       /languages
  */
 
@@ -30,38 +30,41 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+define('MY_PLUGIN_PATH', plugin_dir_path( __FILE__ ));
+
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-theme-logic-activator.php
+ * This action is documented in includes/class-logic-activator.php
  */
-function activate_theme_logic() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-theme-logic-activator.php';
-	Theme_Logic_Activator::activate();
+function activateLogic() {
+	require_once MY_PLUGIN_PATH . 'includes/classes/Activator.php';
+	\Onefastsnail\MyPlugin\Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-theme-logic-deactivator.php
+ * This action is documented in includes/classes/Deactivator.php
  */
-function deactivate_theme_logic() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-theme-logic-deactivator.php';
-	Theme_Logic_Deactivator::deactivate();
+function deactivateLogic() {
+	require_once MY_PLUGIN_PATH . 'includes/classes/Deactivator.php';
+	\Onefastsnail\MyPlugin\Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_theme_logic' );
-register_deactivation_hook( __FILE__, 'deactivate_theme_logic' );
+register_activation_hook( __FILE__, '\Onefastsnail\MyPlugin\activateLogic' );
+register_deactivation_hook( __FILE__, 'Onefastsnail\MyPlugin\deactivateLogic' );
+
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-theme-logic.php';
+require MY_PLUGIN_PATH . 'includes/classes/Main.php';
 
-//include our functions
-require plugin_dir_path( __FILE__ ) . 'includes/functions/index.php';
-
-//include our post types
-require plugin_dir_path( __FILE__ ) . 'includes/custom-post-types.php';
+//functions
+require MY_PLUGIN_PATH . 'includes/functions/main.php';
+require MY_PLUGIN_PATH . 'includes/functions/custom-post-types.php';
+require MY_PLUGIN_PATH . 'includes/functions/rest-api.php';
+require MY_PLUGIN_PATH . 'includes/functions/mock-rest-api.php';
 
 /**
  * Begins execution of the plugin.
@@ -72,10 +75,12 @@ require plugin_dir_path( __FILE__ ) . 'includes/custom-post-types.php';
  *
  * @since    1.0.0
  */
-function run_theme_logic() {
 
-	$plugin = new Theme_Logic();
+function run() {
+
+	$plugin = new \Onefastsnail\MyPlugin\Main();
 	$plugin->run();
 
 }
-run_theme_logic();
+
+\Onefastsnail\MyPlugin\run();

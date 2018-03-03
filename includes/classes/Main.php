@@ -1,4 +1,4 @@
-<?php
+<?php namespace Onefastsnail\MyPlugin;
 
 /**
  * The file that defines the core plugin class
@@ -9,8 +9,8 @@
  * @link       https://www.onefastsnail.com
  * @since      1.0.0
  *
- * @package    Theme_Logic
- * @subpackage Theme_Logic/includes
+ * @package    Logic
+ * @subpackage Logic/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Theme_Logic
- * @subpackage Theme_Logic/includes
+ * @package    Logic
+ * @subpackage Logic/includes
  * @author     Paul Stewart <paul@onefastsnail.com>
  */
-class Theme_Logic {
+class Main {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Theme_Logic {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Theme_Logic_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Logic_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -44,9 +44,9 @@ class Theme_Logic {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+	 * @var      string    $pluginName    The string used to uniquely identify this plugin.
 	 */
-	protected $plugin_name;
+	protected $pluginName;
 
 	/**
 	 * The current version of the plugin.
@@ -68,19 +68,13 @@ class Theme_Logic {
 	 */
 	public function __construct() {
 
-		$this->plugin_name = 'theme-logic';
+		$this->pluginName = 'my-plugin';
 		$this->version = '1.0.0';
 
-		$this->load_dependencies();
-		$this->set_locale();
-		$this->define_admin_hooks();
-		$this->define_public_hooks();
-
-		//a general house clean up
-		$this->general_cleanup();
-
-		//lets bootup our custom post types
-		$this->loader->add_action( 'init', $this, 'create_custom_post_types' );
+		$this->loadDependencies();
+		$this->setLocale();
+		$this->defineAdminHooks();
+		$this->definePublicHooks();
 
 	}
 
@@ -89,10 +83,10 @@ class Theme_Logic {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Theme_Logic_Loader. Orchestrates the hooks of the plugin.
-	 * - Theme_Logic_i18n. Defines internationalization functionality.
-	 * - Theme_Logic_Admin. Defines all hooks for the admin area.
-	 * - Theme_Logic_Public. Defines all hooks for the public side of the site.
+	 * - Logic_Loader. Orchestrates the hooks of the plugin.
+	 * - Logic_i18n. Defines internationalization functionality.
+	 * - Admin. Defines all hooks for the admin area.
+	 * - Logic_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -100,49 +94,49 @@ class Theme_Logic {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function load_dependencies() {
+	private function loadDependencies() {
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-theme-logic-loader.php';
+		require_once MY_PLUGIN_PATH . 'includes/classes/Loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-theme-logic-i18n.php';
+		require_once MY_PLUGIN_PATH . 'includes/classes/I18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-theme-logic-admin.php';
+		require_once MY_PLUGIN_PATH . 'admin/Controller.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-theme-logic-public.php';
+		require_once MY_PLUGIN_PATH . 'public/Controller.php';
 
-		$this->loader = new Theme_Logic_Loader();
+		$this->loader = new Loader();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Theme_Logic_i18n class in order to set the domain and to register the hook
+	 * Uses the Logic_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function set_locale() {
+	private function setLocale() {
 
-		$plugin_i18n = new Theme_Logic_i18n();
+		$plugin_i18n = new I18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->addAction( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
 	}
 
@@ -153,13 +147,17 @@ class Theme_Logic {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
+	private function defineAdminHooks() {
 
-		$plugin_admin = new Theme_Logic_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Admin\Controller( $this->getPluginName(), $this->getVersion() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->addAction( 'admin_enqueue_scripts', $plugin_admin, 'enqueueStyles' );
+        $this->loader->addAction( 'admin_enqueue_scripts', $plugin_admin, 'enqueueScripts' );
 
+		$this->loader->addAction( 'admin_menu', $plugin_admin, 'setupGeneralSettings' );
+
+		// some basic things
+        $this->loader->addAction( 'init', $this, 'setupWpStuff' );
 	}
 
 	/**
@@ -169,12 +167,14 @@ class Theme_Logic {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_public_hooks() {
+	private function definePublicHooks() {
 
-		$plugin_public = new Theme_Logic_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Front\Controller( $this->getPluginName(), $this->getVersion() );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->addAction( 'wp_enqueue_scripts', $plugin_public, 'enqueueStyles' );
+		$this->loader->addAction( 'wp_enqueue_scripts', $plugin_public, 'enqueueScripts' );
+
+		$this->loader->addAction( 'init', $plugin_public, 'restApi' );
 
 	}
 
@@ -194,15 +194,15 @@ class Theme_Logic {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name() {
-		return $this->plugin_name;
+	public function getPluginName() {
+		return $this->pluginName;
 	}
 
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Theme_Logic_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Logic_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;
@@ -214,12 +214,16 @@ class Theme_Logic {
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version() {
+	public function getVersion() {
 		return $this->version;
 	}
 
-	public function general_cleanup(){
-		//remove stupid wp and plugin tags for security
+	public function setupWpStuff(){
+
+		//lets hide the admin bar in the
+		add_filter('show_admin_bar', '__return_false');
+
+		// remove stupid wp and plugin tags for security
 		remove_action('wp_head', 'rsd_link');
 		remove_action('wp_head', 'wp_generator');
 		remove_action('wp_head', 'rest_output_link_wp_head');
@@ -231,23 +235,8 @@ class Theme_Logic {
 		remove_action('admin_print_scripts', 'print_emoji_detection_script');
 		remove_action('wp_print_styles', 'print_emoji_styles');
 		remove_action('admin_print_styles', 'print_emoji_styles');
-		remove_action('wp_head', 'wp_shortlink_wp_head', 10);
+        remove_action('wp_head', 'wp_shortlink_wp_head', 10);
 
-		//lets hide the admin bar in the
-		add_filter('show_admin_bar', '__return_false');
-
-		// Lower the display priority of Yoast SEO meta box
-		add_filter( 'wpseo_metabox_prio', function(){
-			return 'low';
-		});
-	}
-
-	/**
-	 * [create_custom_post_types description]
-	 * @return [type] [description]
-	 */
-	public function create_custom_post_types(){
-		//ThemeLogic\PostTypes\create_example();
 	}
 
 }

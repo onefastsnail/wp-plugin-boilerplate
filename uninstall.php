@@ -22,7 +22,7 @@
  * @link       https://www.onefastsnail.com
  * @since      1.0.0
  *
- * @package    Theme_Logic
+ * @package    Logic
  */
 
 // If uninstall not called from WordPress, then exit.

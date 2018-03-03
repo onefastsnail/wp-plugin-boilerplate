@@ -1,4 +1,4 @@
-<?php
+<?php namespace Onefastsnail\MyPlugin;
 
 /**
  * Define the internationalization functionality
@@ -9,8 +9,8 @@
  * @link       https://www.onefastsnail.com
  * @since      1.0.0
  *
- * @package    Theme_Logic
- * @subpackage Theme_Logic/includes
+ * @package    Logic
+ * @subpackage Logic/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Theme_Logic
- * @subpackage Theme_Logic/includes
+ * @package    Logic
+ * @subpackage Logic/includes
  * @author     Paul Stewart <paul@onefastsnail.com>
  */
-class Theme_Logic_i18n {
+class I18n {
 
 
 	/**
@@ -35,7 +35,7 @@ class Theme_Logic_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'theme-logic',
+			'logic',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
