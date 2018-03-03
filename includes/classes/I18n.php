@@ -9,8 +9,8 @@
  * @link       https://www.onefastsnail.com
  * @since      1.0.0
  *
- * @package    Logic
- * @subpackage Logic/includes
+ * @package    my-plugin
+ * @subpackage my-plugin/includes
  */
 
 /**
@@ -20,8 +20,8 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Logic
- * @subpackage Logic/includes
+ * @package    my-plugin
+ * @subpackage my-plugin/includes
  * @author     Paul Stewart <paul@onefastsnail.com>
  */
 class I18n
@@ -36,7 +36,7 @@ class I18n
     public function load_plugin_textdomain()
     {
         load_plugin_textdomain(
-            'logic',
+            'my-plugin',
             false,
             dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
         );

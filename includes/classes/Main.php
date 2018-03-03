@@ -153,6 +153,7 @@ class Main
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'enqueueStyles');
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'enqueueScripts');
 
+        // add our admin settings
         $this->loader->addAction('admin_menu', $plugin_admin, 'setupGeneralSettings');
 
         // some basic things
@@ -222,7 +223,6 @@ class Main
 
     public function setupWpStuff()
     {
-
         //lets hide the admin bar in the
         add_filter('show_admin_bar', '__return_false');
 

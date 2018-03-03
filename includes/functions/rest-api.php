@@ -17,6 +17,9 @@ function posts()
 
     if (!empty($query->posts)) {
         foreach ($query->posts as $post) {
+
+            // do other things?
+
             array_push($json, $post);
         }
     }

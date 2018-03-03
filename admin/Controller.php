@@ -81,7 +81,7 @@ class Controller
     public function setupGeneralSettings()
     {
         $this->settings['title'] = 'My Plugin';
-        $this->settings['prefix'] = 'myplugin_';
+        $this->settings['prefix'] = 'my-plugin_';
         $this->settings['group'] = 'my-plugin-settings-group';
         $this->settings['capability'] = 'administrator';
 

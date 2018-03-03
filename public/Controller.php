@@ -61,7 +61,6 @@ class Controller
      */
     public function enqueueStyles()
     {
-
         //wp_enqueue_style( $this->pluginName, plugin_dir_url( __FILE__ ) . 'dist/css/bundle.css', array(), $this->version, 'all' );
     }
 
@@ -72,7 +71,6 @@ class Controller
      */
     public function enqueueScripts()
     {
-
         //wp_enqueue_script( $this->pluginName, plugin_dir_url( __FILE__ ) . 'dist/js/bundle.js', array(), $this->version, true );
     }
 
