@@ -2,7 +2,8 @@
 
 namespace Onefastsnail\MyPlugin\RestApi;
 
-function posts(){
+function posts()
+{
     $json = array();
 
     $args = array(

@@ -2,14 +2,13 @@
 
 namespace Onefastsnail\MyPlugin\Mock\RestApi;
 
-function something() {
-
+function something()
+{
     $faker = \Faker\Factory::create();
 
     $json = [];
 
     for ($i=0; $i < 10; $i++) {
-
         $obj = new \stdClass;
 
         $obj->id = $faker->unique()->randomDigit;
@@ -20,7 +19,6 @@ function something() {
         $obj->email = $faker->email;
 
         array_push($json, $obj);
-
     }
 
     return $json;

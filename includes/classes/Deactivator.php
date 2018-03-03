@@ -20,17 +20,17 @@
  * @subpackage Logic/includes
  * @author     Paul Stewart <paul@onefastsnail.com>
  */
-class Deactivator {
+class Deactivator
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function deactivate() {
-
-	}
-
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public static function deactivate()
+    {
+    }
 }

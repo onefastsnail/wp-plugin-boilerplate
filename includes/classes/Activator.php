@@ -20,15 +20,17 @@
  * @subpackage Logic/includes
  * @author     Paul Stewart <paul@onefastsnail.com>
  */
-class Activator {
+class Activator
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function activate() {}
-
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public static function activate()
+    {
+    }
 }

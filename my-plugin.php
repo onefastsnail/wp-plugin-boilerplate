@@ -26,32 +26,34 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (! defined('WPINC')) {
+    die;
 }
 
-define('MY_PLUGIN_PATH', plugin_dir_path( __FILE__ ));
+define('MY_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-logic-activator.php
  */
-function activateLogic() {
-	require_once MY_PLUGIN_PATH . 'includes/classes/Activator.php';
-	\Onefastsnail\MyPlugin\Activator::activate();
+function activateLogic()
+{
+    require_once MY_PLUGIN_PATH . 'includes/classes/Activator.php';
+    \Onefastsnail\MyPlugin\Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/classes/Deactivator.php
  */
-function deactivateLogic() {
-	require_once MY_PLUGIN_PATH . 'includes/classes/Deactivator.php';
-	\Onefastsnail\MyPlugin\Deactivator::deactivate();
+function deactivateLogic()
+{
+    require_once MY_PLUGIN_PATH . 'includes/classes/Deactivator.php';
+    \Onefastsnail\MyPlugin\Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, '\Onefastsnail\MyPlugin\activateLogic' );
-register_deactivation_hook( __FILE__, 'Onefastsnail\MyPlugin\deactivateLogic' );
+register_activation_hook(__FILE__, '\Onefastsnail\MyPlugin\activateLogic');
+register_deactivation_hook(__FILE__, 'Onefastsnail\MyPlugin\deactivateLogic');
 
 
 /**
@@ -76,11 +78,10 @@ require MY_PLUGIN_PATH . 'includes/functions/mock-rest-api.php';
  * @since    1.0.0
  */
 
-function run() {
-
-	$plugin = new \Onefastsnail\MyPlugin\Main();
-	$plugin->run();
-
+function run()
+{
+    $plugin = new \Onefastsnail\MyPlugin\Main();
+    $plugin->run();
 }
 
 \Onefastsnail\MyPlugin\run();

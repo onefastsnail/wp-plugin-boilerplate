@@ -20,65 +20,66 @@
  * @subpackage Logic/admin
  * @author     Paul Stewart <paul@onefastsnail.com>
  */
-class Controller {
+class Controller
+{
 
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $pluginName    The ID of this plugin.
-	 */
-	private $pluginName;
+    /**
+     * The ID of this plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string    $pluginName    The ID of this plugin.
+     */
+    private $pluginName;
 
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
+    /**
+     * The version of this plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string    $version    The current version of this plugin.
+     */
     private $version;
 
     protected $settings = array();
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $pluginName       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
-	public function __construct( $pluginName, $version ) {
-
-		$this->pluginName = $pluginName;
-		$this->version = $version;
-	}
-
-	/**
-	 * Register the stylesheets for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueueStyles() {
-
-		//wp_enqueue_style( $this->pluginName, plugin_dir_url( __FILE__ ) . 'css/logic-admin.css', array(), $this->version, 'all' );
-
-	}
-
-	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueueScripts() {
-
-		//wp_enqueue_script( $this->pluginName, plugin_dir_url( __FILE__ ) . 'js/logic-admin.js', array( 'jquery' ), $this->version, false );
-
+    /**
+     * Initialize the class and set its properties.
+     *
+     * @since    1.0.0
+     * @param      string    $pluginName       The name of this plugin.
+     * @param      string    $version    The version of this plugin.
+     */
+    public function __construct($pluginName, $version)
+    {
+        $this->pluginName = $pluginName;
+        $this->version = $version;
     }
 
-    public function setupGeneralSettings(){
+    /**
+     * Register the stylesheets for the admin area.
+     *
+     * @since    1.0.0
+     */
+    public function enqueueStyles()
+    {
 
+        //wp_enqueue_style( $this->pluginName, plugin_dir_url( __FILE__ ) . 'css/logic-admin.css', array(), $this->version, 'all' );
+    }
+
+    /**
+     * Register the JavaScript for the admin area.
+     *
+     * @since    1.0.0
+     */
+    public function enqueueScripts()
+    {
+
+        //wp_enqueue_script( $this->pluginName, plugin_dir_url( __FILE__ ) . 'js/logic-admin.js', array( 'jquery' ), $this->version, false );
+    }
+
+    public function setupGeneralSettings()
+    {
         $this->settings['title'] = 'My Plugin';
         $this->settings['prefix'] = 'myplugin_';
         $this->settings['group'] = 'my-plugin-settings-group';
@@ -93,31 +94,36 @@ class Controller {
             ]
         );
 
-        if(empty($this->settings['fields'])) return false;
+        if (empty($this->settings['fields'])) {
+            return false;
+        }
 
         // create new top-level menu
         add_submenu_page('options-general.php', $this->settings['title'], $this->settings['title'], $this->settings['capability'], sanitize_key($this->settings['title']), array($this, 'displayGeneralSettingsPage'));
 
         // call register settings function
-	    add_action( 'admin_init', array($this, 'registerGeneralSettingsForSaving') );
+        add_action('admin_init', array($this, 'registerGeneralSettingsForSaving'));
     }
 
-    public function registerGeneralSettingsForSaving() {
-
-        if(empty($this->settings['fields'])) return false;
-
-        // register our settings
-        foreach($this->settings['fields'] as $k => $v){
-            register_setting($this->settings['group'], $v['field'] );
+    public function registerGeneralSettingsForSaving()
+    {
+        if (empty($this->settings['fields'])) {
+            return false;
         }
 
+        // register our settings
+        foreach ($this->settings['fields'] as $k => $v) {
+            register_setting($this->settings['group'], $v['field']);
+        }
     }
 
-    public function displayGeneralSettingsPage() {
-        if(empty($this->settings['fields'])) return false;
+    public function displayGeneralSettingsPage()
+    {
+        if (empty($this->settings['fields'])) {
+            return false;
+        }
 
         $settings = $this->settings;
-        include (MY_PLUGIN_PATH . 'admin/templates/general-settings.php');
+        include(MY_PLUGIN_PATH . 'admin/templates/general-settings.php');
     }
-
 }
